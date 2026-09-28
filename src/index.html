@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculator</title>
+  <link rel="stylesheet" href="css/style.css?v=20260928v3" />
+  <style>
+    .header {
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      margin: 0 0 16px;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .history-head {
+      margin-bottom: 24px !important;
+    }
+    .calc-shell {
+      padding-bottom: 20px !important;
+    }
+    @media (max-width: 820px) {
+      .header {
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <h1>Calculator</h1>
+    </header>
+
+    <main class="layout">
+      <section class="calc-shell" aria-label="Calculator">
+        <div class="display">
+          <div id="errorView" class="error-view" hidden></div>
+          <div id="exprView" class="expr-view" title="Current Expression">&nbsp;</div>
+          <div id="resultView" class="result-view">0</div>
+        </div>
+
+        <!-- Keypad -->
+        <div class="keys" id="keys">
+          <button class="key fn" data-action="ac" type="button">AC</button>
+          <button class="key fn" data-action="sign" type="button">±</button>
+          <button class="key fn" data-action="percent" type="button">%</button>
+          <button class="key op" data-value="/" type="button">÷</button>
+
+          <button class="key num" data-value="7" type="button">7</button>
+          <button class="key num" data-value="8" type="button">8</button>
+          <button class="key num" data-value="9" type="button">9</button>
+          <button class="key op" data-value="*" type="button">×</button>
+
+          <button class="key num" data-value="4" type="button">4</button>
+          <button class="key num" data-value="5" type="button">5</button>
+          <button class="key num" data-value="6" type="button">6</button>
+          <button class="key op" data-value="-" type="button">−</button>
+
+          <button class="key num" data-value="1" type="button">1</button>
+          <button class="key num" data-value="2" type="button">2</button>
+          <button class="key num" data-value="3" type="button">3</button>
+          <button class="key op" data-value="+" type="button">+</button>
+
+          <button class="key num zero" data-value="0" type="button">0</button>
+          <button class="key num" data-value="." type="button">.</button>
+          <button class="key eq" data-action="equals" type="button">=</button>
+        </div>
+
+        <!-- Parentheses and Backspace -->
+        <div class="extra-row">
+          <div class="paren-group" aria-label="Parentheses">
+            <button class="key paren" data-value="(" type="button">(</button>
+            <button class="key paren" data-value=")" type="button">)</button>
+          </div>
+          <button class="key back" data-action="back" type="button" aria-label="Backspace" title="Backspace">
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3 12.59L17.59 17 14 13.41 10.41 17 9 15.59 12.59 12 9 8.41 10.41 7 14 10.59 17.59 7 19 8.41 15.41 12 19 15.59z"/>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <section class="panel history-panel" aria-label="Calculation History">
+        <div class="history-head">
+          <h2>Calculation History</h2>
+          <div class="history-actions">
+            <button id="refreshHistory" class="ghost-btn" type="button">Refresh</button>
+            <button id="clearHistory" class="ghost-btn danger" type="button">Clear</button>
+          </div>
+        </div>
+        <ul id="historyList" class="history-list"></ul>
+        <p id="historyEmpty" class="history-empty">No history records</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span id="apiStatus">API Status: Checking...</span>
+    </footer>
+  </div>
+  <script>
+    // Live backend API URL deployed on Render
+    window.CALCULATOR_API_BASE = window.CALCULATOR_API_BASE || "https://two4125474-calculator-backend.onrender.com";
+  </script>
+  <script src="js/app.js?v=20260928v4"></script>
+</body>
+</html>

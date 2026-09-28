@@ -1,0 +1,377 @@
+/* Calculator layout and color scheme */
+
+:root {
+  --bg: #ffffff;
+  --ink: #1c1c1e;
+  --muted: #8e8e93;
+  --line: #e5e5ea;
+  --accent: #ff9f0a;
+  --accent-press: #f59300;
+  --danger: #ff3b30;
+  --danger-soft: #ffe5e3;
+  /* Button theme colors */
+  --key-num: #333336;
+  --key-num-press: #2a2a2d;
+  --key-fn: #a5a5a8;
+  --key-fn-press: #98989c;
+  --num-ink: #ffffff;
+  --fn-ink: #1c1c1e;
+  --radius: 22px;
+  --font: "SF Pro Display", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--bg);
+}
+
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 28px 20px 40px;
+}
+
+.header {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  margin: 0 0 14px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.subtitle {
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 400px) 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.calc-shell {
+  width: 100%;
+  max-width: 400px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: 0 18px 50px rgba(28, 28, 30, 0.08);
+  padding: 22px 20px 20px;
+}
+
+/* Top row: secondary expression, bottom row: primary result */
+.display {
+  padding: 4px 6px 22px;
+  min-height: 132px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.error-view {
+  align-self: stretch;
+  text-align: right;
+  color: var(--danger);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.expr-view {
+  min-height: 28px;
+  max-width: 100%;
+  text-align: right;
+  color: var(--muted);
+  font-size: 22px;
+  font-weight: 400;
+  word-break: break-all;
+}
+
+.result-view {
+  width: 100%;
+  text-align: right;
+  font-size: 72px;
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  word-break: break-all;
+}
+
+/* 4-column rounded buttons */
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.key {
+  border: none;
+  border-radius: var(--radius);
+  min-height: 76px;
+  font-family: inherit;
+  font-size: 30px;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.06s ease, background 0.12s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.key:active {
+  transform: scale(0.96);
+}
+
+.key.num {
+  background: var(--key-num);
+  color: var(--num-ink);
+}
+
+.key.num:hover,
+.key.num:active {
+  background: var(--key-num-press);
+}
+
+.key.num.zero {
+  grid-column: span 2;
+  justify-content: flex-start;
+  padding-left: 34px;
+  border-radius: 38px;
+}
+
+.key.fn {
+  background: var(--key-fn);
+  color: var(--fn-ink);
+  font-size: 24px;
+  font-weight: 550;
+}
+
+.key.fn:hover,
+.key.fn:active {
+  background: var(--key-fn-press);
+}
+
+.key.op,
+.key.eq {
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 34px;
+  font-weight: 450;
+}
+
+.key.op:hover,
+.key.op:active,
+.key.eq:hover,
+.key.eq:active {
+  background: var(--accent-press);
+}
+
+/* Bottom extra function keys */
+.extra-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  gap: 12px;
+}
+
+.paren-group {
+  display: flex;
+  gap: 12px;
+}
+
+.key.paren {
+  background: var(--key-fn);
+  color: var(--fn-ink);
+  min-width: 60px;
+  min-height: 56px;
+  font-size: 26px;
+  border-radius: 18px;
+}
+
+.key.paren:hover,
+.key.paren:active {
+  background: var(--key-fn-press);
+}
+
+.key.back {
+  background: var(--key-fn);
+  color: var(--fn-ink);
+  min-width: 76px;
+  min-height: 56px;
+  border-radius: 18px;
+  padding: 0 16px;
+}
+
+.key.back:hover,
+.key.back:active {
+  background: var(--key-fn-press);
+}
+
+.panel {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: 0 12px 40px rgba(28, 28, 30, 0.06);
+  padding: 18px;
+}
+
+.history-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.history-head h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.history-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ghost-btn {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.ghost-btn:hover {
+  background: #f2f2f7;
+}
+
+.ghost-btn.danger {
+  color: var(--danger);
+  border-color: #ffc9c5;
+}
+
+.history-note {
+  margin: 8px 0 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 560px;
+  overflow: auto;
+}
+
+.history-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px 14px;
+  background: #fafafa;
+}
+
+.history-main {
+  min-width: 0;
+}
+
+.history-expr {
+  color: var(--muted);
+  font-size: 13px;
+  word-break: break-all;
+}
+
+.history-result {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 2px;
+  word-break: break-all;
+}
+
+.history-time {
+  margin-top: 4px;
+  color: #b0b0b5;
+  font-size: 11px;
+}
+
+.del-btn {
+  border: 1px solid #ffc9c5;
+  background: var(--danger-soft);
+  color: var(--danger);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.del-btn:hover {
+  background: #ffc9c5;
+}
+
+.history-empty {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 12px 0 0;
+}
+
+.footer {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.footer.ok {
+  color: #34c759;
+}
+
+.footer.bad {
+  color: var(--danger);
+}
+
+@media (max-width: 820px) {
+  .header {
+    max-width: none;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .calc-shell {
+    max-width: none;
+  }
+
+  .result-view {
+    font-size: 56px;
+  }
+}
